@@ -9,6 +9,7 @@ class ControladorPID:
     def calcular(self, setpoint, valor_actual, dt):
         error = setpoint - valor_actual
         self.integral += error * dt
+        self.integral = max(min(self.integral, 15.0), -15.0)
 
         derivative = (error - self.prev_error) / dt if dt > 0 else 0
         self.prev_error = error
